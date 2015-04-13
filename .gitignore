@@ -3,6 +3,21 @@
 ### Java ###
 *.class
 
+### IDE ###
+.classpath
+.project
+.settings/
+
+### gradle ###
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 

@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+    }
+}
+
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'eu.appsatori.fatjar'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+ext {
+	groovyGroup = 'org.codehaus.groovy'
+	groovyVersion = '2.3.6'
+	junitGroup = 'junit'
+	junitVersion = '4.11'
+	log4jGroup = 'log4j'
+	log4jVersion = '1.2.17'
+	commonsLangGroup = 'org.apache.commons'
+	commonsLangVersion = '3.1'
+	equalsverifierGroup = 'nl.jqno.equalsverifier'
+	equalsverifierVersion = '1.3.1'
+	guavaGroup = 'com.google.guava'
+	guavaVersion = '15.0'
+	spockGroup = 'org.spockframework'
+	spockVersion = '0.7-groovy-2.0'
+	dropWizardGroup = 'io.dropwizard'
+	dropWizardCoreVersion = '0.7.1'
+	dropWizardTestingVersion = '0.7.1'
+	yammerDropWizardGroup = 'com.yammer.dropwizard'
+	yammerDropWizardTestingVersion = '0.6.2'
+	jerseyGroup = 'com.sun.jersey'
+	jerseyVersion = '1.18.1'
+	httpBuilderGroup = 'org.codehaus.groovy.modules.http-builder'
+	httpBuilderVersion = '0.7.1'
+}
+
+dependencies {
+	compile group: groovyGroup, name: 'groovy-all', version: groovyVersion
+	compile group: commonsLangGroup, name: 'commons-lang3', version: commonsLangVersion
+	compile group: log4jGroup, name: 'log4j', version: log4jVersion
+	compile group: guavaGroup, name: 'guava', version: guavaVersion
+	compile group: spockGroup, name: 'spock-core', version: spockVersion
+	compile group: dropWizardGroup, name: 'dropwizard-core', version: dropWizardCoreVersion
+	compile group: dropWizardGroup, name: 'dropwizard-testing', version: dropWizardTestingVersion
+	compile group: yammerDropWizardGroup, name: 'dropwizard-testing', version: yammerDropWizardTestingVersion
+	compile group: jerseyGroup, name: 'jersey-client', version: jerseyVersion
+	compile group: httpBuilderGroup, name: 'http-builder', version: httpBuilderVersion
+	testCompile group: equalsverifierGroup, name: 'equalsverifier', version: equalsverifierVersion
+}
+
+fatJar {
+	exclude 'META-INF/*.SF'
+	exclude 'META-INF/*.DSA'
+	exclude 'META-INF/*.RSA'
+	manifest {
+		attributes 'Main-Class': 'activity.ActivitiesApplication'
+	}
+}
+
+task intro(dependsOn: 'hello') << {
+    println "I'm Gradle"
+}
+task hello {
+    doLast {
+        println 'Hello world!'
+    }
+}
