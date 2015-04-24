@@ -1,4 +1,6 @@
-= Outdoor Activities Suggestor Interview Exercise =
+= Outdoor Activities Suggestor Interview Exercise
+Bill Turner
+:toc:
 
 == Requirements ==
 . Create a RESTful API that determines if it is a good day to do things outside
@@ -30,8 +32,8 @@ story.
 
 == Architecture Overview ==
 All applications can be solved in a myriad of ways. After reading the requirements, I chose to
-build the solution as a set of three microservices: activity (this repos), forecast
-(_github address_), and suggestion (_github address_).
+build the solution as a set of three microservices: activity, forecast
+(_github address_), and suggestion (see https://github.com/wltiii).
 
 Activity is an orchestrator. It manages calls to the other services and returns suggestions.
 Forecast calls other weather forecasting services (at present only one) and merges those
@@ -81,20 +83,14 @@ and returns a suggested activity.
 |===
 
 === Technology Stack ===
-Below is a list of technologies used to build this application (activity,
-forecast and suggestion services).
+Below is a list of technologies used in the development of Activity.
 
 * Groovy 2.3.6
 * JVM: 1.8.0_45 Vendor: Oracle Corporation
 * OS: Linux Mint 17
-
-. This application was built using Groovy 1.7.1.
-. It was developed using the Intellij IDEA (Maia #10781).
-. Test classes use GroovyTestCase included with Groovy 1.7.1.
-. All tests and the Main class were run via the IDE. No Ant, Gant, Gradle, etc., file has been
-created.
-. Main is a crude version of client that demonstrates the minimum requirements are met as set
-forth in the document.
+* Spock 0.7-groovy-2.0
+* DropWizard 0.7.1
+* Gradle 2.0
 
 === Disclaimer ===
 Not having access to a user nor analyst is not a natural condition. There were conflicting
