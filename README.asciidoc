@@ -1,14 +1,113 @@
-= activity
+= Outdoor Activities Suggestor Interview Exercise =
 
-.Table Title
+== Requirements ==
+. Create a RESTful API that determines if it is a good day to do things outside
+(ski, run, swim, etc.) for the week.
+. Weather Underground (http://www.wunderground.com/weather/api) and Forecast.io
+(https://developer.forcast.io) are good options for data.
+. The service takes location and date(s).
+. Use a DSL or "rules engine" to determine what activities for the weather conditions on each day.
+. Return the result as JSON
+. Don't spend more than three days on this project.
+
+== Goals ==
+
+I believe that what was wanted was something that not only worked, but also demonstrated:
+
+. Design skills
+. Knowledge of Groovy
+. Knowledge of unit testing, in particular with Spock
+. Coding practice
+
+In addition, by developing this, I was able to demonstrate other other things.
+
+. Knowledge of current architectural practices, i.e. microservices, which demonstrates an
+awareness of trends in the field
+. The ability to come up to speed quickly with technologies of which I have little or
+no knowledge. I had never used DropWizard nor Drools before developing this solution.
+. The ability to deliver a working solution in the time span typically available for a
+story.
+
+== Architecture Overview ==
+All applications can be solved in a myriad of ways. After reading the requirements, I chose to
+build the solution as a set of three microservices: activity (this repos), forecast
+(_github address_), and suggestion (_github address_).
+
+Activity is an orchestrator. It manages calls to the other services and returns suggestions.
+Forecast calls other weather forecasting services (at present only one) and merges those
+results into a common response. Suggestion wraps a rules engine which takes weather conditions
+and returns a suggested activity.
+
+=== Endpoint Design ===
+
+.Table Method/URI Definitions
 |===
-|Name of Column 1 |Name of Column 2 |Name of Column 3
+|Method |URI or template |Purpose |Notes
 
-|Cell in column 1, row 1
-|Cell in column 2, row 1
-|Cell in column 3, row 1
+|GET
+|/activities/states/{state}
+|Request activity suggestions for the given state
+|Not yet implemented. How to as weather can vary dramatically from region to region?
 
-|Cell in column 1, row 2
-|Cell in column 2, row 2
-|Cell in column 3, row 2
+|GET
+|/activities/states/{state}/cities/{city}
+|Request activity suggestions for the given city and state
+|This is the only endpoint implemented. Could be improved with time of day suggestions.
+
+|GET
+|/activities/states/{state}/cities/{city}/dates/{date}
+|Request activity suggestions for the given city and state
+|Not yet implemented. Could be useful for planning ahead.
+
+|PUT
+|n/a
+|na
+|This does not provide create/update capabilities
+
+|PATCH
+|n/a
+|na
+|This does not provide create/update capabilities
+
+|POST
+|n/a
+|na
+|This does not provide create/update capabilities
+
+|DELETE
+|n/a
+|na
+|This does not provide create/update capabilities
 |===
+
+=== Technology Stack ===
+Below is a list of technologies used to build this application (activity,
+forecast and suggestion services).
+
+* Groovy 2.3.6
+* JVM: 1.8.0_45 Vendor: Oracle Corporation
+* OS: Linux Mint 17
+
+. This application was built using Groovy 1.7.1.
+. It was developed using the Intellij IDEA (Maia #10781).
+. Test classes use GroovyTestCase included with Groovy 1.7.1.
+. All tests and the Main class were run via the IDE. No Ant, Gant, Gradle, etc., file has been
+created.
+. Main is a crude version of client that demonstrates the minimum requirements are met as set
+forth in the document.
+
+=== Disclaimer ===
+Not having access to a user nor analyst is not a natural condition. There were conflicting
+or unclear requirements conflicts that needed resolution. Also, better design choices would
+have been made having someone available.
+
+The very first requirement is unclear. Is it a good day for the week? This also conflicted
+with the requirement to take a location and a date(s). After discussing this with
+colleagues, we agreed that the default action of passing a city and state would suggest
+activities for each day of the week. The endpoints were purposely designed to allow for
+retrieving suggestions in multiple ways.
+
+This cannot be considered production ready. I viewed this as a story that would have
+further stories addressing issues such as authorization.
+
+== Considerations for Future Releases ==
