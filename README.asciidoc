@@ -21,7 +21,7 @@ I believe that what was wanted was something that not only worked, but also demo
 . Knowledge of unit testing, in particular with Spock
 . Coding practice
 
-In addition, by developing this, I was able to demonstrate other other things.
+In addition, by developing this, I was able to demonstrate other things.
 
 . Knowledge of current architectural practices, i.e. microservices, which demonstrates an
 awareness of trends in the field
@@ -32,8 +32,11 @@ story.
 
 == Architecture Overview ==
 All applications can be solved in a myriad of ways. After reading the requirements, I chose to
-build the solution as a set of three microservices: activity, forecast
-(_github address_), and suggestion (see https://github.com/wltiii).
+create a solution as a set of three microservices: activity, forecast, and suggestion
+(see https://github.com/wltiii). Herein, when I speak of the application, I am referring to
+the solution as a whole. Mention one of the microservices specifically is a setting of the
+context.
+
 
 Activity is an orchestrator. It manages calls to the other services and returns suggestions.
 Forecast calls other weather forecasting services (at present only one) and merges those
@@ -42,9 +45,19 @@ and returns a suggested activity.
 
 === Endpoint Design ===
 
-.Table Method/URI Definitions
+.Activity Service Method/URI Definitions
 |===
 |Method |URI or template |Purpose |Notes
+
+|GET
+|/activities
+|Returns the possible activities that can be suggested.
+|Not yet implemented.
+
+|GET
+|/activities/states
+|Returns the states for which activities can be provided.
+|Not yet implemented.
 
 |GET
 |/activities/states/{state}
@@ -52,13 +65,23 @@ and returns a suggested activity.
 |Not yet implemented. How to as weather can vary dramatically from region to region?
 
 |GET
+|/activities/states/{state}/cities
+|Returns the cities for which activities can be provided.
+|Not yet implemented.
+
+|GET
 |/activities/states/{state}/cities/{city}
 |Request activity suggestions for the given city and state
 |This is the only endpoint implemented. Could be improved with time of day suggestions.
 
 |GET
+|/activities/states/{state}/cities/{city}/dates
+|Returns the dates for which activities can be provided.
+|Not yet implemented.
+
+|GET
 |/activities/states/{state}/cities/{city}/dates/{date}
-|Request activity suggestions for the given city and state
+|Request activity suggestions for the given city, state and date.
 |Not yet implemented. Could be useful for planning ahead.
 
 |PUT
@@ -92,18 +115,36 @@ Below is a list of technologies used in the development of Activity.
 * DropWizard 0.7.1
 * Gradle 2.0
 
+=== Testing ===
+As a believer in TDD, tests were written first while driving out the behavior. Based upon my
+experience, this leads to _testing behavior_ not methods. Some people may look at the tests
+and see that classes are not tested in isolation. Many in the field believe that all
+dependencies must be mocked. There are recognized leaders that would disagree with that
+stance. They feel the original meaning of _unit_ is a unit of behavior that may span
+classes. Only objects that represent an integration with an external service should be
+mocked. My experience tells me that this is a better way of practicing TDD as opposed to
+the mockist approach. However, I do understand others strongly held beliefs in the practices
+of the other camp. And, I would be happy to engage in a theoretical discussion with others -
+one of my favorite activities, in fact, for we all learn from them.
+
+All that said, after I have fleshed out all the behavior and have refactored to my satisfaction
+I will add further test where I feel it necessary. These tests tend to be more about regression.
+
 === Disclaimer ===
 Not having access to a user nor analyst is not a natural condition. There were conflicting
-or unclear requirements conflicts that needed resolution. Also, better design choices would
+or unclear requirements that needed resolution. Also, other design choices would
 have been made having someone available.
 
-The very first requirement is unclear. Is it a good day for the week? This also conflicted
-with the requirement to take a location and a date(s). After discussing this with
+The very first requirement is unclear. What does _a good day to do things outside *for the week*_
+actually mean? This also conflicted
+with the requirement to take a location and a date(s). Discussing this with
 colleagues, we agreed that the default action of passing a city and state would suggest
 activities for each day of the week. The endpoints were purposely designed to allow for
 retrieving suggestions in multiple ways.
 
 This cannot be considered production ready. I viewed this as a story that would have
-further stories addressing issues such as authorization.
+further stories addressing issues such as authorization, as well as implementing the
+other endpoints.
 
 == Considerations for Future Releases ==
+* Add in basic authorization
