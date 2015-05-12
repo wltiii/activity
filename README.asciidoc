@@ -1,6 +1,7 @@
-= Outdoor Activities Suggestor Interview Exercise
+= Interview Exercise - Outdoor Activities Suggestor
 Bill Turner
 :toc:
+:toc-placement: preamble
 
 == Requirements ==
 . Create a RESTful API that determines if it is a good day to do things outside
