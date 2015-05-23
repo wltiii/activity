@@ -1,0 +1,74 @@
+= Style Guide
+Bill Turner
+
+== Coding Theory And Practice ==
+Publishing code for all the world to see is laying yourself bare. It is a bit frightening
+for you are leaving yourself open to judgment without the opportunity to explain
+or defend the choices made. And, there are many, many choices that can be made. There
+the choices of the names of things: packages, classes, methods and variables, and more.
+There are choices in architecture, decomposition, algorithm and pattern selection, in
+formatting. It seems infinite. The choices I have made may not always have been the best.
+Time constraints, purpose and audience are but some of the factors that enter into the
+seemingly limitless decisions to be made. The choices made were not thoughtless. In fact,
+I have spent much time in my career trying to uncover ways to improve. My quest has
+included reading such books as _The Elements Of Programming Style_, _Code Complete_,
+_Refactoring_, and _Clean Code_, many blog sites, most especially _Joel On Software_, as
+well as any number of philosophical arguments with colleagues.
+
+Whether you have come to this as a precursor to using my services, or are just a curious
+professional, please keep the above in mind. I will be happy to discuss any of my projects,
+and willing to learn from your critiques.
+
+Also, let it be known that as a consultant I will offer opinions and suggestions for
+improvement, but I will also adhere to style and practices in employ at the client,
+assuming there is a conflict.
+
+All that I have said above about choices applies equally as well to test code, perhaps
+even more so.
+
+
+== Testing Theory And Practice ==
+I find that Test Driven Development (TDD) yields both better code and better tests. I do
+admit that I sometimes slip into writing solution code, then following it up with tests. I am
+not perfect.
+
+Using TDD leads to tests that _test behavior not implementation_. I'll address that further
+below. What may surprise some is that my tests will reach across class boundaries. They may
+shout _"Don't test your neighbors!"_ What many do not know is that this is a fundamental
+difference in two schools of thought - the Detroit and London schools. They both have strengths.
+I lean toward the former, viewing the unit under test as a unit of behavior. This means
+interactions are not mocked unless they represent external input and output. In other words,
+domain classes are not mocked, while boundaries are mocked. Boundaries - such as data repositories,
+network i/o, and external systems, should be isolated with adapters, tested with integration
+tests and mocked within the domain tests. End-to-end tests get called to assure that complete
+path calls can be made. This still leaves us with unit tests that may involve more than
+one class. How does this happen?
+
+Most people familiar with TDD have heard the mantra: _red, green, refactor_.
+
+. Start with a simple, failing test - _red bar_
+. Write just enough code to make it work - _green bar_
+. Now refactor.
+
+Refactoring means a change made to the software making it easier to understand and/or less
+expensive to modify while not changing observable behavior. In other words, simplifying. What is often
+overlooked is that test code should as aggressively refactored as the implementation. I could even
+argue that it is more so.
+
+Initially, there is little refactoring to be done. Eventually, though, the realization dawns that the method
+under test no longer adheres to the *Single Responsibility Principle*. So, the *Extract Method*
+refactoring is applied (see http://www.refactoring.com/catalog/). Staying true to refactoring,
+no observable behavior has changed and the tests pass without modification. This cycle is repeated
+until several methods have been extracted. This is when it is determined that the class under
+test is no longer adherring to the single responsibility principle and the *Extract Class*
+refactoring is applied. This cycle can repeat itself many times, all while running the same
+suite of tests. Hence, testing behavior. And, this is how you end up with tests that traverse
+into other classes.
+
+All that said, after I have fleshed out all the behavior and have refactored to my satisfaction
+I will add further tests where I feel it necessary. These tests tend to be more about regression.
+
+My experience tells me that this is a better way of practising TDD. I do understand others strongly
+believe that all dependencies should be mocked. I would be happy to engage in a theoretical discussion
+with others having such beliefs over a beer or coffee. In fact, this is one of my favorite activities,
+for we all learn from them.

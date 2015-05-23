@@ -1,0 +1,13 @@
+= TODOs
+Bill Turner
+
+== Considerations for Future Releases ==
+* Add in basic authorization
+* Add architecture diagram to README
+* Be sure to mention Apache Camel in forecast README
+* Create a UI
+* Add installation and running sections to README
+* Add run target to build
+* Did I cover REST design principles in the README
+* [line-through]#Separate style guide from README#
+* [line-through]#Separate TODOs from README#

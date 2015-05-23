@@ -37,9 +37,8 @@ story.
 All applications can be solved in a myriad of ways. After reading the requirements, I chose to
 create a solution as a set of three microservices: activity, forecast, and suggestion
 (see https://github.com/wltiii). Herein, when I speak of the application, I am referring to
-the solution as a whole. Mention one of the microservices specifically is a setting of the
-context.
-
+the solution as a whole. Mention of one of the specific microservices is placing what is
+being discussed in that context.
 
 Activity is an orchestrator. It manages calls to the other services and returns suggestions.
 Forecast calls other weather forecasting services (at present only one) and merges those
@@ -118,52 +117,6 @@ Below is a list of technologies used in the development of Activity.
 * DropWizard 0.7.1
 * Gradle 2.0
 
-=== Testing Theory ===
-I find that Test Driven Development (TDD) yields both better code and better tests. I do
-admit that I sometimes slip into writing solution code, then following it up with tests. I am
-not perfect.
-
-Using TDD leads to tests that _test behavior not implementation_. I'll address that further
-below. What may surprise some is that my tests will reach across class boundaries. They may
-shout _"Don't test your neighbors!"_ What many do not know is that this is a fundamental
-difference in two schools of thought - the Detroit and London schools. They both have strengths.
-I lean toward the former, viewing the unit under test as a unit of behavior. This means
-interactions are not mocked unless they represent external input and output. In other words,
-domain classes are not mocked, while boundaries are mocked. Boundaries - such as data repositories,
-network i/o, and external systems, should be isolated with adapters, tested with integration
-tests and mocked within the domain tests. End-to-end tests get called to assure that complete
-path calls can be made. This still leaves us with unit tests that may involve more than
-one class. How does this happen?
-
-Most people familiar with TDD have heard the mantra: _red, green, refactor_.
-
-. Start with a simple, failing test - _red bar_
-. Write just enough code to make it work - _green bar_
-. Now refactor.
-
-Refactoring means a change made to the software making it easier to understand and/or less
-expensive to modify while not changing observable behavior. In other words, simplifying. What is often
-overlooked is that test code should as aggressively refactored as the implementation. I could even
-argue that it is more so.
-
-Initially,there is little refactoring to be done. Eventually, though, the realization dawns that the method
-under test no longer adheres to the *Single Responsibility Principle*. So, the *Extract Method*
-refactoring is applied (see http://www.refactoring.com/catalog/). Staying true to refactoring,
-no observable behavior has changed and the tests pass without modification. This cycle is repeated
-until several methods have been extracted. This is when it is determined that the class under
-test is no longer adherring to the single responsibility principle and the *Extract Class*
-refactoring is applied. This cycle can repeat itself many times, all while running the same
-suite of tests. Hence, testing behavior. And, this is how you end up with tests that traverse
-into other classes.
-
-All that said, after I have fleshed out all the behavior and have refactored to my satisfaction
-I will add further test where I feel it necessary. These tests tend to be more about regression.
-
-My experience tells me that this is a better way of practising TDD. I do understand others strongly
-believe that all dependencies should be mocked. I would be happy to engage in a theoretical discussion
-with others having such beliefs over a beer or coffee. In fact, this is one of my favorite activities,
-for we all learn from them.
-
 === Disclaimer ===
 Not having access to a user nor analyst is not a natural condition. There were conflicting
 or unclear requirements that needed resolution. Also, other design choices would
@@ -180,5 +133,6 @@ This cannot be considered production ready. I viewed this as a story that would 
 further stories addressing issues such as authorization, as well as implementing the
 other endpoints.
 
-== Considerations for Future Releases ==
-* Add in basic authorization
+include::STYLE_GUIDE.asciidoc[]
+
+include::TODO.asciidoc[]
