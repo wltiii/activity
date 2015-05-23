@@ -45,6 +45,8 @@ Forecast calls other weather forecasting services (at present only one) and merg
 results into a common response. Suggestion wraps a rules engine which takes weather conditions
 and returns a suggested activity.
 
+image::images/architecture.svg[Outdoor Activities Suggestor Architecture]
+
 === Endpoint Design ===
 
 .Activity Service Method/URI Definitions
