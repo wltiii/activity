@@ -12,6 +12,9 @@ apply plugin: 'eclipse'
 apply plugin: 'groovy'
 apply plugin: 'java'
 apply plugin: 'eu.appsatori.fatjar'
+apply plugin: 'application'
+
+mainClassName = 'activity.ActivitiesApplication'
 
 repositories {
 	mavenLocal()
@@ -63,15 +66,10 @@ fatJar {
 	exclude 'META-INF/*.DSA'
 	exclude 'META-INF/*.RSA'
 	manifest {
-		attributes 'Main-Class': 'activity.ActivitiesApplication'
+		attributes 'Main-Class': mainClassName
 	}
 }
 
-task intro(dependsOn: 'hello') << {
-    println "I'm Gradle"
-}
-task hello {
-    doLast {
-        println 'Hello world!'
-    }
+run {
+    args 'server', 'activities.yml'
 }
