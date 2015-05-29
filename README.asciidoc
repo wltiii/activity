@@ -35,7 +35,7 @@ story.
 
 == Architecture Overview ==
 All applications can be solved in a myriad of ways. After reading the requirements, I chose to
-create a solution as a set of three microservices: activity, forecast, and suggestion
+create a solution as a set of three microservices: *_activity_*, _forecast_, and _suggestion_
 (see https://github.com/wltiii). Herein, when I speak of the application, I am referring to
 the solution as a whole. Mention of one of the specific microservices is placing what is
 being discussed in that context.
@@ -119,7 +119,7 @@ Below is a list of technologies used in the development of Activity.
 * DropWizard 0.7.1
 * Gradle 2.0
 
-=== Getting Started ===
+== Getting Started ==
 Install the following tools if you do not already have them:
 
  . If you don't have already, install Java (see the Technology Stack section for
@@ -130,13 +130,13 @@ Install the following tools if you do not already have them:
  . Clone the activity, forecast and suggestion projects in your projects home directory. Be
    sure to read and perform any additional setup as outlined in the related project's
    README Getting Started section.
- . Navigate into the project directory, for exampe [projects home]/activity.
+ . Navigate into the project directory, for example [projects home]/activity.
  . Change the settings in `activities.yml` to have your application run on a
    port your choosing.
  . Run command `gradle build`.
  . Run command `gradle fatJar`.
  . Run command `gradle run`.
- . Once all three of the services have been started -- activities, forecast and
+ . Once all three of the services have been started -- activity, forecast and
    suggestion -- you can verify installation by navigating your web browser to
    `http://localhost:9000/activities/states/MN/cities/Minneapolis`, being sure
    to use your port settings, if changed.
@@ -151,7 +151,7 @@ for IntelliJ IDEA. You are strongly encouraged to run `gradle tasks` for a list 
 targets.
 
 
-=== Disclaimer ===
+== Disclaimer ==
 Not having access to a user nor analyst is not a natural condition. There were conflicting
 or unclear requirements that needed resolution. Also, other design choices would
 have been made having someone available.
