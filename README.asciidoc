@@ -119,6 +119,31 @@ Below is a list of technologies used in the development of Activity.
 * DropWizard 0.7.1
 * Gradle 2.0
 
+=== Getting Started ===
+Install the following tools if you do not already have them:
+
+ . If you don't have already, install Java (see the Technology Stack section for
+   versions used).
+ . Install GVM (see http://gvmtool.net/) if it is available for your OS, then use it
+   to install Groovy and Gradle. Alternatively, search the web for installation instructions.
+ . Install git (see https://git-scm.com/).
+ . Clone the activity, forecast and suggestion projects in your projects home directory. Be
+   sure to read and perform any additional setup as outlined in the related project's
+   README Getting Started section.
+ . Navigate into the project directory, for exampe [projects home]/activity.
+ . Run command `gradle build`.
+ . Run command `gradle fatJar`.
+ . Run command `gradle run`.
+
+
+If you are unfamiliar with Gradle, it is a powerful build automation tool. The `gradle.build`
+file contained within the project contains a number of plugins that extend the functionality
+of the tool. One of these is the Eclipse plugin. This plugin can be used to generate an Eclipse
+project, which you can import. There is a similar plugin, not contained within the build file,
+for IntelliJ IDEA. You are strongly encouraged to run `gradle tasks` for a list of all available
+targets.
+
+
 === Disclaimer ===
 Not having access to a user nor analyst is not a natural condition. There were conflicting
 or unclear requirements that needed resolution. Also, other design choices would
