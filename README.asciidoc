@@ -131,9 +131,16 @@ Install the following tools if you do not already have them:
    sure to read and perform any additional setup as outlined in the related project's
    README Getting Started section.
  . Navigate into the project directory, for exampe [projects home]/activity.
+ . Change the settings in `activities.yml` to have your application run on a
+   port your choosing.
  . Run command `gradle build`.
  . Run command `gradle fatJar`.
  . Run command `gradle run`.
+ . Once all three of the services have been started -- activities, forecast and
+   suggestion -- you can verify installation by navigating your web browser to
+   `http://localhost:9000/activities/states/MN/cities/Minneapolis`, being sure
+   to use your port settings, if changed.
+
 
 
 If you are unfamiliar with Gradle, it is a powerful build automation tool. The `gradle.build`
