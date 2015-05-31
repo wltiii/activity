@@ -2,16 +2,10 @@
 
 import activity.core.DailyConditions;
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import groovy.transform.Canonical;
 
-import groovy.transform.Immutable;
-import groovy.transform.ToString
-
-@ToString
-@Immutable
+@Canonical
 final class ActivitySuggestion {
-    @JsonProperty
-	Conditions conditions
-    @JsonProperty
 	String activity
+  Conditions conditions
 }

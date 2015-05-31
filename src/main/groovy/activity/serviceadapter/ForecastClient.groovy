@@ -16,7 +16,24 @@ class ForecastClient {
 		Forecast f = new Forecast(city: json.city, state: json.state)
 
 		final List<DailyConditions> conditions =
-			buildDailyConditions(json.conditions, 0, new ArrayList<DailyConditions>())
+			json.conditions.collect { forecastCondition ->
+				println "forecastCondition is $forecastCondition"
+				def dc = new DailyConditions(forecastCondition)
+				println "dailyCondition is $dc"
+				dc
+				// new DailyConditions(
+				// 	date: forecastCondition.date,
+				// 	highTempInFahrenheit: forecastCondition.highTempInFahrenheit as Integer,
+				// 	lowTempInFahrenheit: forecastCondition.lowTempInFahrenheit as Integer,
+				// 	conditions: forecastCondition.conditions,
+				// 	rainTotalInInches: forecastCondition.rainTotalInInches as Integer,
+				// 	snowTotalInInches: forecastCondition.snowTotalInInches as Integer,
+				// 	averageWindInMilesPerHour: forecastCondition.averageWindInMilesPerHour as Integer,
+				// 	maxWindInMilesPerHour: forecastCondition.maxWindInMilesPerHour as Integer,
+				// 	averageHumidity: forecastCondition.averageHumidity as Integer,
+				// 	maxHumidity: forecastCondition.maxhumidity as Integer
+				// )
+			}
 
 		new Forecast(city: json.city, state: json.state, conditions: conditions)
 
@@ -25,28 +42,6 @@ class ForecastClient {
 	private String buildPath(String state, String city) {
 		def apipath = "/forecast/states/${state}/cities/${city}"
 		apipath
-	}
-
-	@TailRecursive
-	private List<DailyConditions> buildDailyConditions(forecastedConditions, int count, List<DailyConditions> dailyConditions) {
-		if (count == forecastedConditions.size) {
-			dailyConditions
-		}
-		else {
-			def condition = new DailyConditions(
-				date: forecastedConditions[count].date,
-				highTempInFahrenheit: forecastedConditions[count].highTempInFahrenheit as Integer,
-				lowTempInFahrenheit: forecastedConditions[count].lowTempInFahrenheit as Integer,
-				conditions: forecastedConditions[count].conditions,
-				rainTotalInInches: forecastedConditions[count].rainTotalInInches as Integer,
-				snowTotalInInches: forecastedConditions[count].snowTotalInInches as Integer,
-				averageWindInMilesPerHour: forecastedConditions[count].averageWindInMilesPerHour as Integer,
-				maxWindInMilesPerHour: forecastedConditions[count].maxWindInMilesPerHour as Integer,
-				averageHumidity: forecastedConditions[count].averageHumidity as Integer,
-				maxHumidity: forecastedConditions[count].maxhumidity as Integer
-			)
-			buildDailyConditions(forecastedConditions, ++count, dailyConditions << condition)
-		}
 	}
 
 	def retrieveFromProvider(String apiPath) {

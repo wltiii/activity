@@ -2,8 +2,6 @@ package activity.serviceadapter
 
 import activity.core.Forecast
 
-import com.fasterxml.jackson.databind.ObjectMapper
-
 import groovy.json.JsonSlurper
 
 class ForecastClientDouble extends ForecastClient {

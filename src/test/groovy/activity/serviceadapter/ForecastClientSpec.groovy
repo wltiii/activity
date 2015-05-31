@@ -14,6 +14,7 @@ class ForecastClientSpec extends Specification {
 		then:
 		forecast.state == "IL"
 		forecast.city == "Chicago"
+		forecast.conditions.size == 10
 	}
 
 }

@@ -18,6 +18,7 @@ import javax.ws.rs.PathParam
 import javax.ws.rs.core.MediaType
 
 import groovy.transform.EqualsAndHashCode;
+// TODO remove tail recursion
 import groovy.transform.TailRecursive
 import groovy.transform.ToString;
 import groovy.json.JsonSlurper
@@ -53,12 +54,16 @@ public final class ActivityResource {
     public DailySuggestions suggestActivity(@PathParam("states") String state, @PathParam("cities") String city) {
 			println "suggestActivity(${state}, ${city})"
       final Forecast forecast = forecastClient.retrieveConditions(state, city)
+
 			println "suggestActivity --> forecast = ${forecast}"
-      final List<ActivitySuggestion> dailySuggestions = buildDailySuggestions(forecast.conditions, new ArrayList<ActivitySuggestion>())
+      final List<ActivitySuggestion> dailySuggestions =
+        buildDailySuggestions(forecast.conditions, new ArrayList<ActivitySuggestion>())
+
 			println "suggestActivity --> dailySuggestions = ${dailySuggestions}"
       new DailySuggestions(state: state, city: city, activities: dailySuggestions)
     }
 
+    // TODO replace recursion with map (collect) function
     @TailRecursive
     List<ActivitySuggestion> buildDailySuggestions(List<DailyConditions> dailyConditions, List<ActivitySuggestion> dailySuggestions) {
       if (!dailyConditions) {
