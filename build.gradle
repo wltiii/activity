@@ -52,12 +52,12 @@ dependencies {
 	compile group: commonsLangGroup, name: 'commons-lang3', version: commonsLangVersion
 	compile group: log4jGroup, name: 'log4j', version: log4jVersion
 	compile group: guavaGroup, name: 'guava', version: guavaVersion
-	compile group: spockGroup, name: 'spock-core', version: spockVersion
 	compile group: dropWizardGroup, name: 'dropwizard-core', version: dropWizardCoreVersion
 	compile group: dropWizardGroup, name: 'dropwizard-testing', version: dropWizardTestingVersion
 	compile group: yammerDropWizardGroup, name: 'dropwizard-testing', version: yammerDropWizardTestingVersion
 	compile group: jerseyGroup, name: 'jersey-client', version: jerseyVersion
 	compile group: httpBuilderGroup, name: 'http-builder', version: httpBuilderVersion
+  testCompile group: spockGroup, name: 'spock-core', version: spockVersion
 	testCompile group: equalsverifierGroup, name: 'equalsverifier', version: equalsverifierVersion
 }
 

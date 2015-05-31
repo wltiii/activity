@@ -2,6 +2,7 @@
 Bill Turner
 
 == Considerations for Future Releases ==
+* Remove hard coded domain and port numbers from client calls
 * Add in basic authorization
 * Create a UI
 * [line-through]#Add architecture diagram to README#

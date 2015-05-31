@@ -29,12 +29,12 @@ import java.util.concurrent.atomic.AtomicLong
 @EqualsAndHashCode
 @ToString
 public final class ActivityResource {
-	final String defaultState
-	final String defaultCity
-	
-	private final ForecastClient forecastClient
-	private final SuggestionClient suggestionClient
-	
+  private final String defaultState
+  private final String defaultCity
+
+  private final ForecastClient forecastClient
+  private final SuggestionClient suggestionClient
+
 
     public ActivityResource(String defaultState, String defaultCity) {
         this(defaultState, defaultCity, new ForecastClient(), new SuggestionClient())
@@ -43,34 +43,34 @@ public final class ActivityResource {
     public ActivityResource(String defaultState, String defaultCity, ForecastClient forecastClient, SuggestionClient suggestionClient) {
         this.defaultState = defaultState
         this.defaultCity = defaultCity
-		this.forecastClient = forecastClient
-		this.suggestionClient = suggestionClient
+        this.forecastClient = forecastClient
+        this.suggestionClient = suggestionClient
     }
 
     @GET
     @Timed
-	@Path("states/{states}/cities/{cities}")
+    @Path("states/{states}/cities/{cities}")
     public DailySuggestions suggestActivity(@PathParam("states") String state, @PathParam("cities") String city) {
-		
-		final Forecast forecast = forecastClient.retrieveConditions(state, city)
-	
-		final List<ActivitySuggestion> dailySuggestions = buildDailySuggestions(forecast.conditions, new ArrayList<ActivitySuggestion>())
-		
-        new DailySuggestions(state: state, city: city, activities: dailySuggestions)
+			println "suggestActivity(${state}, ${city})"
+      final Forecast forecast = forecastClient.retrieveConditions(state, city)
+			println "suggestActivity --> forecast = ${forecast}"
+      final List<ActivitySuggestion> dailySuggestions = buildDailySuggestions(forecast.conditions, new ArrayList<ActivitySuggestion>())
+			println "suggestActivity --> dailySuggestions = ${dailySuggestions}"
+      new DailySuggestions(state: state, city: city, activities: dailySuggestions)
     }
 
-	@TailRecursive	
-	List<ActivitySuggestion> buildDailySuggestions(List<DailyConditions> dailyConditions, List<ActivitySuggestion> dailySuggestions) {
-		if (!dailyConditions) {
-			dailySuggestions
-		}
-		else {
-			final DailyConditions dayCondition = dailyConditions.head()
-			final int totalPrecipitation = dayCondition.rainTotalInInches + dayCondition.snowTotalInInches
-			final Conditions conditions = new Conditions(dayCondition.highTempInFahrenheit,dayCondition.lowTempInFahrenheit,totalPrecipitation,dayCondition.averageWindInMilesPerHour,dayCondition.maxWindInMilesPerHour,dayCondition.averageHumidity,dayCondition.maxHumidity)
-			final ActivitySuggestion activitySuggestion = suggestionClient.retrieveSuggestion(conditions)
-			buildDailySuggestions(dailyConditions.tail(), dailySuggestions << activitySuggestion)
-		}
-	}
-	
+    @TailRecursive
+    List<ActivitySuggestion> buildDailySuggestions(List<DailyConditions> dailyConditions, List<ActivitySuggestion> dailySuggestions) {
+      if (!dailyConditions) {
+        dailySuggestions
+      }
+      else {
+        final DailyConditions dayCondition = dailyConditions.head()
+        final int totalPrecipitation = dayCondition.rainTotalInInches + dayCondition.snowTotalInInches
+        final Conditions conditions = new Conditions(dayCondition.highTempInFahrenheit,dayCondition.lowTempInFahrenheit,totalPrecipitation,dayCondition.averageWindInMilesPerHour,dayCondition.maxWindInMilesPerHour,dayCondition.averageHumidity,dayCondition.maxHumidity)
+        final ActivitySuggestion activitySuggestion = suggestionClient.retrieveSuggestion(conditions)
+        buildDailySuggestions(dailyConditions.tail(), dailySuggestions << activitySuggestion)
+      }
+    }
+
 }
