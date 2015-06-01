@@ -72,3 +72,5 @@ My experience tells me that this is a better way of practising TDD. I do underst
 believe that all dependencies should be mocked. I would be happy to engage in a theoretical discussion
 with others having such beliefs over a beer or coffee. In fact, this is one of my favorite activities,
 for we all learn from them.
+
+J. B. Rainsberger states something very similar to the above at http://junit.org/faq.html#atests_15.
