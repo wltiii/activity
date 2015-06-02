@@ -17,22 +17,7 @@ class ForecastClient {
 
 		final List<DailyConditions> conditions =
 			json.conditions.collect { forecastCondition ->
-				println "forecastCondition is $forecastCondition"
-				def dc = new DailyConditions(forecastCondition)
-				println "dailyCondition is $dc"
-				dc
-				// new DailyConditions(
-				// 	date: forecastCondition.date,
-				// 	highTempInFahrenheit: forecastCondition.highTempInFahrenheit as Integer,
-				// 	lowTempInFahrenheit: forecastCondition.lowTempInFahrenheit as Integer,
-				// 	conditions: forecastCondition.conditions,
-				// 	rainTotalInInches: forecastCondition.rainTotalInInches as Integer,
-				// 	snowTotalInInches: forecastCondition.snowTotalInInches as Integer,
-				// 	averageWindInMilesPerHour: forecastCondition.averageWindInMilesPerHour as Integer,
-				// 	maxWindInMilesPerHour: forecastCondition.maxWindInMilesPerHour as Integer,
-				// 	averageHumidity: forecastCondition.averageHumidity as Integer,
-				// 	maxHumidity: forecastCondition.maxhumidity as Integer
-				// )
+				new DailyConditions(forecastCondition)
 			}
 
 		new Forecast(city: json.city, state: json.state, conditions: conditions)
@@ -45,10 +30,8 @@ class ForecastClient {
 	}
 
 	def retrieveFromProvider(String apiPath) {
-		println "ForecastClient.retrieveFromProvider($apiPath)"
 		def client = new RESTClient('http://127.0.0.1:9002')
 		def resp = client.get( path : apiPath)
-		println "ForecastClient.retrieveFromProvider.resp --> $resp"
 		resp.data
 	}
 
