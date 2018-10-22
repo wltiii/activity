@@ -29,7 +29,7 @@ In addition, by developing this, I was able to demonstrate other things.
 . Knowledge of current architectural practices, i.e. microservices, which demonstrates an
 awareness of trends in the field
 . The ability to come up to speed quickly with technologies of which I have little or
-no knowledge. I had never used DropWizard nor Drools before developing this solution.
+no knowledge. *_I hadn't used DropWizard nor Drools before developing this solution._*
 . The ability to deliver a working solution in the time span typically available for a
 story.
 
